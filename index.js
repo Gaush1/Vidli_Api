@@ -7,6 +7,9 @@ const genre = require('./routes/genres')
 const customer = require('./routes/customers')
 const movie = require('./routes/movies')
 const rental = require('./routes/rentals')
+const user = require('./routes/users');
+const auth = require('./routes/auth');
+const port = process.env.PORT || 3000;
 
 mongoose
 .connect("mongodb://127.0.0.1:27017/vidly")
@@ -27,4 +30,8 @@ app.use('/api/movies',movie)
 
 app.use('/api/rentals',rental)
 
-app.listen(3000, ()=>console.log("Listening on http://localhost:3000"));
+app.use('/api/users',user);
+
+app.use('/api/auths',auth);
+
+app.listen(port, ()=>console.log(`Listening on http://localhost:${port}`));

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require("express");
 const Joi = require("joi");
 Joi.objectId = require('joi-objectid')(Joi)
+const {config} = require('./config')
 const app = express();
 const genre = require('./routes/genres')
 const customer = require('./routes/customers')
@@ -9,10 +10,10 @@ const movie = require('./routes/movies')
 const rental = require('./routes/rentals')
 const user = require('./routes/users');
 const auth = require('./routes/auth');
-const port = process.env.PORT || 3000;
+
 
 mongoose
-.connect("mongodb://127.0.0.1:27017/vidly")
+.connect(`${config.db}`)
 .then(()=>console.log("Connected to MongoDB.."))
 .catch((err)=>console.log("Could not connect to MongoDB...", err));
 
@@ -34,4 +35,4 @@ app.use('/api/users',user);
 
 app.use('/api/auths',auth);
 
-app.listen(port, ()=>console.log(`Listening on http://localhost:${port}`));
+app.listen(config.port, ()=>console.log(`Listening on http://localhost:${config.port}`));

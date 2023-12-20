@@ -5,8 +5,9 @@ const { User, ValidateUser } = require("../models/user");
 const router = express.Router();
 const auth = require("../middleware/auth");
 
-router.get("/",auth, async (req, res) => {
-  const user = await User.find().sort("name");
+// Route to get the corrent user.
+router.get("/me",auth, async (req, res) => {
+  const user = await User.findById(req.user._id).select("-password");
   res.send(user);
 });
 

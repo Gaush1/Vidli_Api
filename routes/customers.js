@@ -1,16 +1,15 @@
 const { Customer, ValidateCustomer } = require("../models/customer");
-const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-const Joi = require("joi");
+const auth =  require('../middleware/auth');
 
 // Routes
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const customer = await Customer.find().sort("name");
   res.send(customer);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id",auth, async (req, res) => {
   const customer = await Customer.findById(req.params.id);
 
   if (!customer)
@@ -18,7 +17,7 @@ router.get("/:id", async (req, res) => {
   res.send(customer);
 });
 
-router.post("/", async (req, res) => {
+router.post("/",auth, async (req, res) => {
   const { error } = ValidateCustomer(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
@@ -33,7 +32,7 @@ router.post("/", async (req, res) => {
   res.send(customer);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id",auth, async (req, res) => {
   const { error } = ValidateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 

@@ -1,60 +1,80 @@
-## Introduction
+# Introduction
 
-This project is the backend of Vidly, an video rental app. I have developed this project from the course:
-- https://codewithmosh.com/p/the-complete-node-js-course
+This project is the backend of Vidly, an video rental app.
 
-This is the implementation of Vidly in Node.js.
+## Vidli API Using Node.js
 
-## Setup
+ In this project, I built a RESTful API, a backend service that allows users to rent movies from a movie rental app. I added a few endpoints to let any user view a list of movies in stock, rent a movie, or return a movie. A user can view a list of movies in stock. But an account is required in order to rent or return a movie. I created the following endpoints for the API client:
 
-Make sure to follow all these steps exactly as explained below. Do not miss any steps or you won't be able to run this application.
+***User***
+- user signup
+- user authentication
 
-### Install MongoDB
+***Movie***
+- movie create
+- movie show
+- movie index
+- movie update
+- movie delete
 
-To run this project, you need to install the latest version of MongoDB Community Edition first.
+***Genre***
+- genre create
+- genre show
+- genre index
+- genre update
+- genre delete
 
-https://docs.mongodb.com/manual/installation/
+***Customer***
+- customer create
+- customer show
+- customer index
+- customer update
+- customer delete
 
-Once you install MongoDB, make sure it's running.
+***Rental***
+- rental create
+- rental show
+- rental index
 
-### Install the Dependencies
+***Return***
+- return create
+- return show
+- return index
 
-Next, from the project folder, install the dependencies:
+***Built with***
+- JavaScript
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
 
-    npm i
 
-### Populate the Database
+## 📝 Installation Guide
 
-    node seed.js
+ - Open a terminal
+ 
+ - Clone this app: 
+        ```
+        git clone git@github.com:ezeilo-su/vidly-API.git
+        ```
 
-### Run the Tests
+- ```cd``` into the app directory.
 
-You're almost done! Run the tests to make sure everything is working:
+- Run the command ```npm install``` to install the required dependencies.
 
-    npm test
+- Add JSON Web Token (JWT) HMAC secret as an environment variable using the key: vidly_jwtPrivateKey.
 
-All tests should pass.
+- In the project directory, run:
+- Run ```npm start``` to run the app. Default port is 3000, ie the server listens on ```http://localhost:3000```.
+- Send an ```HTTP``` request to any of the following endpoints using any API client such as postman, ThunderClient, etc:
 
-### Start the Server
+    * POST /api/users
+    * GET /api/users/me
 
-    node index.js
+    * POST /api/auth
 
-This will launch the Node server on port 3900. If that port is busy, you can set a different point in config/default.json.
-
-Open up your browser and head over to:
-
-http://localhost:3900/api/genres
-
-You should see the list of genres. That confirms that you have set up everything successfully.
-
-### (Optional) Environment Variables
-
-If you look at config/default.json, you'll see a property called jwtPrivateKey. This key is used to encrypt JSON web tokens. So, for security reasons, it should not be checked into the source control. I've set a default value here to make it easier for you to get up and running with this project. For a production scenario, you should store this key as an environment variable.
-
-On Mac:
-
-    export vidly_jwtPrivateKey=yourSecureKey
-
-On Windows:
-
-    set vidly_jwtPrivateKey=yourSecureKey
+    * /api/customers
+    * /api/genres
+    * /api/movies
+    * /api/rentals (POST only)
+    * /api/returns (POST only)

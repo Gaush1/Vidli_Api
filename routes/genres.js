@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 
 // Routes
 router.get("/", async (req, res) => {
-  // throw new Error('Could not get errors');
   const genres = await Genre.find().sort("name");
   res.send(genres);
 });

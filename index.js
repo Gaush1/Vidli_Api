@@ -1,9 +1,10 @@
-const mongoose = require("mongoose");
 const express = require("express");
 require("express-async-errors");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const { config } = require("./config");
+const winston = require('winston');
+const logger = require('./startup/logging');
 const app = express();
 const genre = require("./routes/genres");
 const customer = require("./routes/customers");
@@ -13,10 +14,8 @@ const user = require("./routes/users");
 const auth = require("./routes/auth");
 const error = require("./middleware/error");
 
-mongoose
-  .connect(`${config.db}`)
-  .then(() => console.log("Connected to MongoDB.."))
-  .catch((err) => console.log("Could not connect to MongoDB...", err));
+require('./startup/config')();
+require('./startup/db')();
 
 app.use(express.json());
 

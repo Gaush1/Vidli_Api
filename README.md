@@ -55,14 +55,19 @@ This project is the backend of Vidly, an video rental app.
  
  - Clone this app: 
         ```
-        git clone git@github.com:ezeilo-su/vidly-API.git
+        git clone git@github.com:Gaush1/Vidli_Api.git
         ```
 
 - ```cd``` into the app directory.
 
 - Run the command ```npm install``` to install the required dependencies.
 
-- Add JSON Web Token (JWT) HMAC secret as an environment variable using the key: vidly_jwtPrivateKey.
+- Convert .env.sample file into .env file
+
+- Add port as an environment variable using the key: PORT
+- Add MongoDb base url as an environment variable using the key: MONGODB_URL
+- Add JSON Web Token (JWT) HMAC secret as an environment variable using the key: VIDLY_JWTPRIVATEKEY.
+- Add Database name in the constant.js file using the key DB_NAME.
 
 - In the project directory, run:
 - Run ```npm start``` to run the app. Default port is 3000, ie the server listens on ```http://localhost:3000```.

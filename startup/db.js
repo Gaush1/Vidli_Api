@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const { config } = require('../config/index');
+const logger = require('./logging');
 
 module.exports = () =>{
     const db = config.db
     mongoose
     .connect(db)
-    .then(() => console.log(`Connected to MongoDB ${db}`))
-    .catch((err) => console.log("Could not connect to MongoDB...", err));
+    .then(() => logger.info(`Connected to MongoDB ${db}`))
+    // .catch((err) => console.log("Could not connect to MongoDB...", err));
 }

@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const { Genre, Validategenres } = require("../models/genre");
 const mongoose = require("mongoose");
+const validateObjectId = require('../middleware/validateObjectId');
 
 // Routes
 router.get("/", async (req, res) => {
@@ -11,7 +12,7 @@ router.get("/", async (req, res) => {
   res.send(genres);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id",validateObjectId, async (req, res) => {
   const genre = await Genre.findById(req.params.id);
 
   if (!genre)
@@ -32,7 +33,7 @@ router.post("/", auth, async (req, res) => {
   res.send(genre);
 });
 
-router.put("/:id",auth, async (req, res) => {
+router.put("/:id",[auth,validateObjectId], async (req, res) => {
   const { error } = Validategenres(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -48,7 +49,7 @@ router.put("/:id",auth, async (req, res) => {
   res.send(genre);
 });
 
-router.delete("/:id",[auth,admin], async (req, res) => {
+router.delete("/:id",[auth,admin,validateObjectId], async (req, res) => {
   const genre = await Genre.findByIdAndDelete(req.params.id);
 
   if (!genre)

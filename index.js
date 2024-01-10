@@ -27,6 +27,8 @@ require('./startup/routes')(app);
 require('./startup/validation')();
 
 
-app.listen(config.port, () =>
+const server = app.listen(config.port, () =>
   logger.info(`Listening on http://localhost:${config.port}`)
 );
+
+module.exports = server;

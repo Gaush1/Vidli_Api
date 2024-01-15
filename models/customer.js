@@ -32,5 +32,15 @@ function ValidateCustomer(customer){
     return schema.validate(customer)
 }
 
+function validateCustomerUpdate(customer) {
+    const schema = Joi.object({
+      isGold: Joi.boolean(),
+      phone: Joi.string(),
+      name: Joi.string().min(3).max(50),
+    });
+    return schema.validate(customer);
+}
+
 exports.Customer = Customer;
 exports.ValidateCustomer = ValidateCustomer;
+exports.validateCustomerUpdate = validateCustomerUpdate;

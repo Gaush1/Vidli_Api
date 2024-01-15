@@ -66,7 +66,7 @@ rentalSchema.statics.lookup = function(customerId,movieId){ // Static method: av
 rentalSchema.methods.return = function(){ // instance method: avalable on object like new Rental()
     this.dateReturned = new Date();
 
-    const rentalDays = moment().diff(this.dateOut, 'days');
+    const rentalDays = moment(this.dateReturned).diff(this.dateOut, 'days');
     this.rentalFee = rentalDays * this.movie.dailyRentalRate;
 }
 

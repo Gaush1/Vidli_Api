@@ -1,35 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { Rental } = require("../models/rental");
 const auth = require('../middleware/auth');
 const Joi = require('joi');
-const { Movie } = require("../models/movie");
 const validate = require('../middleware/validate');
+const {create} = require("../controllers/returns.controller.js");
 
-router.post("/",[auth, validate(ValidateReturn)], async (req, res) => {
-  const { customerId, movieId } = req.body;
-  const rental = await Rental.lookup(customerId,movieId);
-  
-  if (!rental) {
-    res.status(404).send("movieId or customerId is not found");
-  }
-
-  if (rental.dateReturned) {
-    res.status(400).send("Return already processed");
-  }
-
-  rental.return();
-  await rental.save();
-
-  await Movie.updateOne({
-    _id: rental.movie._id
-  },
-  {
-    $inc: {numberInStock: 1}
-  });
-
-  res.send(rental);
-});
+router.route("/").post([auth, validate(ValidateReturn)],create);
 
 function ValidateReturn(returns){
   const schema = Joi.object({
